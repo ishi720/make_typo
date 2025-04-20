@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>Let's Typo</title>
+
+    <meta name="description" content="文章をタイポグリセミア現象で変換します。">
+    <meta name="keywords" content="タイポグリセミア,タイポグリセミア現象,ミスタイプ">
+
+    <script src="node_modules/kuromoji/build/kuromoji.js"></script>
+    <link rel="stylesheet" type="text/css" href="node_modules/purecss/build/pure-min.css">
+    <link rel="stylesheet" type="text/css" href="style/make_typo.min.css">
+
+    <script data-ad-client="ca-pub-7487798657793162" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-100146863-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-100146863-4');
+    </script>
+
+    <style type="text/css">
+        body {
+            background-size: 20px 20px;
+            background-color: #333;
+            background-image:
+            linear-gradient(
+                90deg,
+                rgba(56,142,60,0.5) 5%,
+                transparent 5%,
+                transparent 95%,
+                rgba(56,142,60,0.5) 95%,
+                rgba(56,142,60,0.5) 95%,
+                transparent 95%,
+                transparent
+            ),
+            linear-gradient(
+                0deg,
+                rgba(56,142,60,0.5) 5%,
+                transparent 5%,
+                transparent 95%,
+                rgba(56,142,60,0.5) 95%,
+                rgba(56,142,60,0.5) 95%,
+                transparent 95%,
+                transparent
+            );
+        }
+        .title {
+            color: #fff;
+            border-bottom: solid 1px gray;
+            margin: 5px;
+            font-family: 'arial black';
+        }
+        .detailBlock {
+            padding: 10px;
+            color: #fff;
+        }
+        .detail {
+            white-space: pre-line;
+            text-align: left;
+        }
+        #result[data-placeholderactive=true]::before {
+          content: attr(data-placeholder);
+          opacity: 0.6;
+        }
+
+
+        .success {
+            border: solid 2px rgb(0, 128, 0);
+        }
+        .failure {
+            border: solid 2px red;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 class="title">Let's Typo</h1>
+
+    <div class="detailBlock">
+        <p class="detail" style="white-space: pre-line;">ようこそ、タイポグリセミア現象ってご存知でしょうか。
+単語の最初と最後の文字以外が入れ替わっていても、正しく読めてしまう現象です。
+
+操作方法
+① 画面左側に文章を入力<!--(または、「サンプルテキストを使う」をクリック)-->
+② 「タイポする」ボタンをクリック
+③ 右側の画面にタイポグリセミアで変換した文章が表示
+④ どこが変わったか分かりますか？
+</p>
+<p style="white-space: pre-line;">
+Lineやtwitterなどで共有する分には構いませんが
+ビジネスメールなどの文章を変換して送信してしまっても責任は一切取りません
+</p>
+        
+        <!--
+        <button class="pure-button" style="background:rgb(0,120,231);color:#fff;" onclick="sampleSet()">サンプルテキストを使う</button>
+        -->
+        
+    </div>
+
+
+    <div class="pure-g">
+        <div class="pure-u-1-2">
+            <div class="textarea_head" style="background: rgba(255,255,255,.1);backdrop-filter: blur(1px);">
+                <span style="color:#fff;">変換前</span>
+                <button onclick="textClear()">クリアする</button>
+                <button onclick="typoglycemia()">タイポする</button>
+            </div>
+            <textarea id="typo" style="height: 80px;" spellcheck="false" placeholder="ここに文章を入力してください"></textarea>
+        </div>
+        <div class="pure-u-1-2">
+            <div class="textarea_head" style="background: rgba(255,255,255,.1);backdrop-filter: blur(1px);">
+                <span style="color:#fff;">変換後</span>
+                <span style="color:#fff;">変更箇所確認</span>
+                <span class="toggle-switch">
+                    <input id="toggle" class="toggle-input" type='checkbox' onclick="typoStrong()" />
+                    <label for="toggle" class="toggle-label"/>
+                </span>
+            </div>
+            <div id="result" data-placeholder="ここに変換された文章が表示されます" data-placeholderactive='true' tabindex="0" contenteditable="true" onpaste="return false" ondrop="return false" spellcheck="false" style="height: 80px;background-color: #fff;"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+var strongLine = false;
+
+
+document.execCommand('defaultParagraphSeparator', false, 'div')
+
+//入力箇所の高さの自動制御
+var textareaL = document.getElementById("typo");
+var textareaR = document.getElementById("result");
+textareaL.addEventListener('input', function() {
+    textareaL.style.height = "50px";
+    textareaL.style.height = textareaL.scrollHeight + "px";
+    textareaR.style.height = textareaL.scrollHeight + "px";
+});
+
+var msie = window.document.documentMode;
+
+if (msie) {
+    textareaR.addEventListener('keydown', function() {
+        console.log("event");
+        textareaR.style.height = "50px";
+        textareaR.style.height = textareaR.scrollHeight + "px";
+        textareaL.style.height = textareaR.scrollHeight + "px";
+        placeholderChange(textareaR);
+    });
+} else {
+    textareaR.addEventListener('input', function() {
+        console.log("input");
+        textareaR.style.height = "50px";
+        textareaR.style.height = textareaR.scrollHeight + "px";
+        textareaL.style.height = textareaR.scrollHeight + "px";
+        placeholderChange(textareaR);
+    });
+}
+
+var input = document.getElementById("input");
+
+// input.addEventListener('change', function() {
+
+//     if ( input.value === 'こんにちは') {
+//         console.log("ok");
+//         input.classList.remove("success");
+//         input.classList.add("failure");
+//     } else {
+//         input.classList.remove("failure");
+//         input.classList.add("success");
+//     }
+// });
+input.addEventListener('input', function() {
+    //if ( input.value === 'こんにちは') {
+    if ( input.value.match(/こ.*?は/g) ) {
+        input.classList.remove("failure");
+        input.classList.remove("success");
+    } else {
+        input.classList.remove("success");
+        input.classList.add("failure");
+    }
+});
+
+var textarea = document.getElementById("typo");
+textarea.addEventListener('input', function() {
+  if (!textarea.value.match(/.*?こんにちは.*?/)) {
+    textarea.classList.add("failure");
+  } else {
+    textarea.classList.remove("failure");
+  }
+});
+
+
+function typoglycemia() {
+    // 形態素解析メソッドの呼び出し
+    kuromoji.builder({ dicPath: "node_modules/kuromoji/dict/" }).build(function (err, tokenizer) {
+        if(err) {
+            console.log(err);
+            return;
+        }
+
+        var str = htmlCut(document.getElementById("typo").value);
+
+        // 形態素解析
+        var tokens = tokenizer.tokenize( str );
+        var work = "";
+        var text = "";
+
+        for (var i=0;  i < tokens.length; i++){
+            var tango = replacingChara(tokens[i].surface_form);
+
+            if (tango === tokens[i].surface_form) {
+                work = work + tango;
+            } else {
+                if (strongLine) {
+                    work = work + "<span class='typo strong'>"　+ tango + "</span>";　
+                } else {
+                    work = work + "<span class='typo'>"　+ tango + "</span>";　
+                }
+            }
+        }
+
+        // 結果を表示する
+        document.getElementById("result").innerHTML = work;
+
+        placeholderChange(textareaR);
+    });
+
+}
+
+function replacingChara(str){
+    return String(str).replace(/^(.)(.*?)(.)$/, function(v,p1,p2,p3){
+        return p1 + sort_random(p2.split('')).join('') + p3;
+    });
+}
+function sort_random(array){
+    for (var i = 0; i < array.length; i++){
+      var rand = Math.floor( Math.random() * ( i + 1 ) );
+      var tmp = array[i];
+      array[i] = array[rand];
+      array[rand] = tmp;
+    }
+    return array;
+}
+function typoStrong(){
+    var arr = Array.prototype.slice.call(document.getElementsByClassName("typo"));
+    if ( !strongLine ) {
+        Array.prototype.forEach.call(document.getElementsByClassName("typo"), function(ele){
+            ele.classList.add("strong");
+        });
+    } else {
+        Array.prototype.forEach.call(document.getElementsByClassName("typo"), function(ele){
+            ele.classList.remove("strong");
+        });
+    }
+    strongLine = !strongLine;
+}
+function textClear(){
+    document.getElementById("typo").value = "";
+    document.getElementById("result").textContent  = "";
+
+    placeholderChange(textareaR);
+}
+
+function htmlCut(str) {
+    return String(str).replace(/<.+?>/g,' ');
+}
+
+function sampleSet(){
+    var str = document.getElementsByClassName("detail")[0].textContent;
+    document.getElementById("typo").value = str;
+}
+
+function placeholderChange(ele) {
+    if ( ele.textContent.length === 0 && ( ele.innerText.match(/\r\n|\n/g) === null || ele.innerText.match(/\r\n|\n/g).length === 1 )  ){
+        document.getElementById("result").textContent  = "";//強制的に中身を空にする
+        ele.setAttribute('data-placeholderactive','true');
+
+    } else {
+        ele.setAttribute('data-placeholderactive','false');
+    }
+}
+
+</script>
