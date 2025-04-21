@@ -2,6 +2,6 @@
   "license": "MIT",
   "dependencies": {
     "kuromoji": "0.1.x",
-    "purecss": "2.x.x"
+    "purecss": "3.x.x"
   }
 }
