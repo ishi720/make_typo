@@ -1,8 +1,8 @@
+"use strict";
 
 var strongLine = false;
 
-
-document.execCommand('defaultParagraphSeparator', false, 'div')
+document.execCommand('defaultParagraphSeparator', false, 'div');
 
 //入力箇所の高さの自動制御
 var textareaL = document.getElementById("typo");
@@ -45,18 +45,17 @@ function typoglycemia() {
         // 形態素解析
         var tokens = tokenizer.tokenize( str );
         var work = "";
-        var text = "";
 
-        for (var i=0;  i < tokens.length; i++){
+        for (var i=0; i < tokens.length; i++){
             var tango = replacingChara(tokens[i].surface_form);
 
             if (tango === tokens[i].surface_form) {
                 work = work + tango;
             } else {
                 if (strongLine) {
-                    work = work + "<span class='typo strong'>"　+ tango + "</span>";　
+                    work = work + "<span class='typo strong'>" + tango + "</span>";
                 } else {
-                    work = work + "<span class='typo'>"　+ tango + "</span>";　
+                    work = work + "<span class='typo'>" + tango + "</span>";
                 }
             }
         }
@@ -69,13 +68,13 @@ function typoglycemia() {
 
 }
 
-function replacingChara(str){
+function replacingChara(str) {
     return String(str).replace(/^(.)(.*?)(.)$/, function(v,p1,p2,p3){
         return p1 + sort_random(p2.split('')).join('') + p3;
     });
 }
-function sort_random(array){
-    for (var i = 0; i < array.length; i++){
+function sort_random(array) {
+    for (var i = 0; i < array.length; i++) {
       var rand = Math.floor( Math.random() * ( i + 1 ) );
       var tmp = array[i];
       array[i] = array[rand];
@@ -83,7 +82,7 @@ function sort_random(array){
     }
     return array;
 }
-function typoStrong(){
+function typoStrong() {
     var arr = Array.prototype.slice.call(document.getElementsByClassName("typo"));
     if ( !strongLine ) {
         Array.prototype.forEach.call(document.getElementsByClassName("typo"), function(ele){
@@ -96,7 +95,7 @@ function typoStrong(){
     }
     strongLine = !strongLine;
 }
-function textClear(){
+function textClear() {
     document.getElementById("typo").value = "";
     document.getElementById("result").textContent  = "";
 
