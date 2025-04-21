@@ -43,9 +43,9 @@ Lineやtwitterなどで共有する分には構いませんが
 ビジネスメールなどの文章を変換して送信してしまっても責任は一切取りません
 </p>
 
-        <!--
-        <button class="pure-button" style="background:rgb(0,120,231);color:#fff;" onclick="sampleSet()">サンプルテキストを使う</button>
-        -->
+    <!--
+    <button class="pure-button" style="background:rgb(0,120,231);color:#fff;" onclick="sampleSet()">サンプルテキストを使う</button>
+    -->
 
     </div>
 
@@ -109,41 +109,6 @@ if (msie) {
         placeholderChange(textareaR);
     });
 }
-
-var input = document.getElementById("input");
-
-// input.addEventListener('change', function() {
-
-//     if ( input.value === 'こんにちは') {
-//         console.log("ok");
-//         input.classList.remove("success");
-//         input.classList.add("failure");
-//     } else {
-//         input.classList.remove("failure");
-//         input.classList.add("success");
-//     }
-// });
-input.addEventListener('input', function() {
-    //if ( input.value === 'こんにちは') {
-    if ( input.value.match(/こ.*?は/g) ) {
-        input.classList.remove("failure");
-        input.classList.remove("success");
-    } else {
-        input.classList.remove("success");
-        input.classList.add("failure");
-    }
-});
-
-var textarea = document.getElementById("typo");
-textarea.addEventListener('input', function() {
-  if (!textarea.value.match(/.*?こんにちは.*?/)) {
-    textarea.classList.add("failure");
-  } else {
-    textarea.classList.remove("failure");
-  }
-});
-
-
 function typoglycemia() {
     // 形態素解析メソッドの呼び出し
     kuromoji.builder({ dicPath: "node_modules/kuromoji/dict/" }).build(function (err, tokenizer) {
