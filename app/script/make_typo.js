@@ -95,12 +95,6 @@ function typoStrong() {
     }
     strongLine = !strongLine;
 }
-function textClear() {
-    document.getElementById("typo").value = "";
-    document.getElementById("result").textContent  = "";
-
-    placeholderChange(textareaR);
-}
 
 function htmlCut(str) {
     return String(str).replace(/<.+?>/g,' ');

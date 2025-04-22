@@ -55,7 +55,6 @@ Lineやtwitterなどで共有する分には構いませんが、
         <div class="pure-u-1-2">
             <div class="textarea_head" style="background: rgba(255,255,255,.1);backdrop-filter: blur(1px);">
                 <span style="color:#fff;">変換前</span>
-                <button onclick="textClear()">クリアする</button>
                 <button onclick="typoglycemia()">タイポする</button>
             </div>
             <textarea id="typo" style="height: 80px;" spellcheck="false" placeholder="ここに文章を入力してください"></textarea>
@@ -69,7 +68,7 @@ Lineやtwitterなどで共有する分には構いませんが、
                     <label for="toggle" class="toggle-label"/>
                 </span>
             </div>
-            <div id="result" data-placeholder="ここに変換された文章が表示されます" data-placeholderactive='true' tabindex="0" contenteditable="true" onpaste="return false" ondrop="return false" spellcheck="false" style="height: 80px;background-color: #fff;"></div>
+            <div id="result" data-placeholder="ここに変換された文章が表示されます" data-placeholderactive='true' tabindex="0" contenteditable="false" onpaste="return false" ondrop="return false" spellcheck="false" style="height: 80px;background-color: #fff;"></div>
         </div>
     </div>
 </body>
