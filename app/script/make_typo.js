@@ -32,6 +32,10 @@ if (msie) {
         placeholderChange(textareaR);
     });
 }
+
+/**
+ * タイポグリセミア変換を実行
+ */
 function typoglycemia() {
     // 形態素解析メソッドの呼び出し
     kuromoji.builder({ dicPath: "node_modules/kuromoji/dict/" }).build(function (err, tokenizer) {
@@ -68,11 +72,22 @@ function typoglycemia() {
 
 }
 
+/**
+ * 文字列の先頭と末尾を残し、中間の文字をランダムに並び替える
+ * @param {string} str - 対象の文字列
+ * @returns {string} 変換後の文字列
+ */
 function replacingChara(str) {
     return String(str).replace(/^(.)(.*?)(.)$/, function(v,p1,p2,p3){
         return p1 + sort_random(p2.split('')).join('') + p3;
     });
 }
+
+/**
+ * 配列の要素をランダムに並び替える（Fisher-Yates シャッフル）
+ * @param {Array} array - シャッフルする配列
+ * @returns {Array} シャッフルされた配列
+ */
 function sort_random(array) {
     for (var i = 0; i < array.length; i++) {
       var rand = Math.floor( Math.random() * ( i + 1 ) );
@@ -82,6 +97,10 @@ function sort_random(array) {
     }
     return array;
 }
+
+/**
+ * タイポ部分の強調表示を切り替える
+ */
 function typoStrong() {
     var arr = Array.prototype.slice.call(document.getElementsByClassName("typo"));
     if ( !strongLine ) {
@@ -96,15 +115,27 @@ function typoStrong() {
     strongLine = !strongLine;
 }
 
+/**
+ * HTMLタグを除去し、テキストのみに変換する
+ * @param {string} str - HTMLを含む文字列
+ * @returns {string} テキストのみの文字列
+ */
 function htmlCut(str) {
     return String(str).replace(/<.+?>/g,' ');
 }
 
+/**
+ * サンプル文を左側入力欄にセットする
+ */
 function sampleSet(){
     var str = document.getElementsByClassName("detail")[0].textContent;
     document.getElementById("typo").value = str;
 }
 
+/**
+ * placeholderの表示制御（空欄かどうかで切り替え）
+ * @param {HTMLElement} ele - 対象の要素
+ */
 function placeholderChange(ele) {
     if ( ele.textContent.length === 0 && ( ele.innerText.match(/\r\n|\n/g) === null || ele.innerText.match(/\r\n|\n/g).length === 1 )  ){
         document.getElementById("result").textContent  = "";//強制的に中身を空にする
