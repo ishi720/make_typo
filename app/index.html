@@ -30,7 +30,7 @@
     <h1 class="title">Let's Typo</h1>
 
     <div class="detailBlock">
-        <p class="detail" style="white-space: pre-line;">ようこそ、タイポグリセミア現象ってご存知でしょうか。
+        <p class="detail">ようこそ、タイポグリセミア現象ってご存知でしょうか。
 単語の最初と最後の文字以外が入れ替わっていても、正しく読めてしまう現象です。
 
 操作方法
@@ -39,7 +39,7 @@
 ③ 右側の画面にタイポグリセミアで変換した文章が表示
 ④ どこが変わったか分かりますか？
 </p>
-<p style="white-space: pre-line;">
+<p class="detail">
 Lineやtwitterなどで共有する分には構いませんが、
 ビジネスメールなどの文章を変換して送信してしまっても責任は一切取りません。
 </p>
@@ -53,22 +53,22 @@ Lineやtwitterなどで共有する分には構いませんが、
 
     <div class="pure-g">
         <div class="pure-u-1-2">
-            <div class="textarea_head" style="background: rgba(255,255,255,.1);backdrop-filter: blur(1px);">
-                <span style="color:#fff;">変換前</span>
+            <div class="textarea_head">
+                <span class="textarea_head_str">変換前</span>
                 <button onclick="typoglycemia()">タイポする</button>
             </div>
-            <textarea id="typo" style="height: 80px;" spellcheck="false" placeholder="ここに文章を入力してください"></textarea>
+            <textarea id="typo" spellcheck="false" placeholder="ここに文章を入力してください"></textarea>
         </div>
         <div class="pure-u-1-2">
-            <div class="textarea_head" style="background: rgba(255,255,255,.1);backdrop-filter: blur(1px);">
-                <span style="color:#fff;">変換後</span>
-                <span style="color:#fff;">変更箇所確認</span>
+            <div class="textarea_head">
+                <span class="textarea_head_str">変換後</span>
+                <span class="textarea_head_str">変更箇所確認</span>
                 <span class="toggle-switch">
                     <input id="toggle" class="toggle-input" type='checkbox' onclick="typoStrong()" />
-                    <label for="toggle" class="toggle-label"/>
+                    <label for="toggle" class="toggle-label">
                 </span>
             </div>
-            <div id="result" data-placeholder="ここに変換された文章が表示されます" data-placeholderactive='true' tabindex="0" contenteditable="false" onpaste="return false" ondrop="return false" spellcheck="false" style="height: 80px;background-color: #fff;"></div>
+            <div id="result" data-placeholder="ここに変換された文章が表示されます" data-placeholderactive='true' tabindex="0" contenteditable="false" onpaste="return false" ondrop="return false" spellcheck="false"></div>
         </div>
     </div>
 </body>
