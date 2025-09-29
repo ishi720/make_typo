@@ -39,7 +39,7 @@ if (msie) {
 function typoglycemia() {
     // 形態素解析メソッドの呼び出し
     kuromoji.builder({ dicPath: "node_modules/kuromoji/dict/" }).build(function (err, tokenizer) {
-        if(err) {
+        if (err) {
             console.log(err);
             return;
         }
@@ -102,16 +102,9 @@ function sort_random(array) {
  * タイポ部分の強調表示を切り替える
  */
 function typoStrong() {
-    var arr = Array.prototype.slice.call(document.getElementsByClassName("typo"));
-    if ( !strongLine ) {
-        Array.prototype.forEach.call(document.getElementsByClassName("typo"), function(ele){
-            ele.classList.add("strong");
-        });
-    } else {
-        Array.prototype.forEach.call(document.getElementsByClassName("typo"), function(ele){
-            ele.classList.remove("strong");
-        });
-    }
+    document.querySelectorAll(".typo").forEach(ele => {
+        ele.classList.toggle("strong", !strongLine);
+    });
     strongLine = !strongLine;
 }
 
