@@ -12,26 +12,12 @@ textareaL.addEventListener('input', function() {
     textareaL.style.height = textareaL.scrollHeight + "px";
     textareaR.style.height = textareaL.scrollHeight + "px";
 });
-
-var msie = window.document.documentMode;
-
-if (msie) {
-    textareaR.addEventListener('keydown', function() {
-        console.log("event");
-        textareaR.style.height = "50px";
-        textareaR.style.height = textareaR.scrollHeight + "px";
-        textareaL.style.height = textareaR.scrollHeight + "px";
-        placeholderChange(textareaR);
-    });
-} else {
-    textareaR.addEventListener('input', function() {
-        console.log("input");
-        textareaR.style.height = "50px";
-        textareaR.style.height = textareaR.scrollHeight + "px";
-        textareaL.style.height = textareaR.scrollHeight + "px";
-        placeholderChange(textareaR);
-    });
-}
+textareaR.addEventListener('input', function() {
+    textareaR.style.height = "50px";
+    textareaR.style.height = textareaR.scrollHeight + "px";
+    textareaL.style.height = textareaR.scrollHeight + "px";
+    placeholderChange(textareaR);
+});
 
 /**
  * タイポグリセミア変換を実行
