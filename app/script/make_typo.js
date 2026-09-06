@@ -1,12 +1,12 @@
 "use strict";
 
-var strongLine = false;
+let strongLine = false;
 
 document.execCommand('defaultParagraphSeparator', false, 'div');
 
 //入力箇所の高さの自動制御
-var textareaL = document.getElementById("typo");
-var textareaR = document.getElementById("result");
+const textareaL = document.getElementById("typo");
+const textareaR = document.getElementById("result");
 textareaL.addEventListener('input', function() {
     textareaL.style.height = "50px";
     textareaL.style.height = textareaL.scrollHeight + "px";
@@ -30,14 +30,14 @@ function typoglycemia() {
             return;
         }
 
-        var str = htmlCut(document.getElementById("typo").value);
+        const str = htmlCut(document.getElementById("typo").value);
 
         // 形態素解析
-        var tokens = tokenizer.tokenize( str );
-        var work = "";
+        const tokens = tokenizer.tokenize( str );
+        let work = "";
 
-        for (var i=0; i < tokens.length; i++){
-            var tango = replacingChara(tokens[i].surface_form);
+        for (let i=0; i < tokens.length; i++){
+            const tango = replacingChara(tokens[i].surface_form);
 
             if (tango === tokens[i].surface_form) {
                 work = work + tango;
@@ -75,9 +75,9 @@ function replacingChara(str) {
  * @returns {Array} シャッフルされた配列
  */
 function sort_random(array) {
-    for (var i = 0; i < array.length; i++) {
-      var rand = Math.floor( Math.random() * ( i + 1 ) );
-      var tmp = array[i];
+    for (let i = 0; i < array.length; i++) {
+      const rand = Math.floor( Math.random() * ( i + 1 ) );
+      const tmp = array[i];
       array[i] = array[rand];
       array[rand] = tmp;
     }
@@ -107,7 +107,7 @@ function htmlCut(str) {
  * サンプル文を左側入力欄にセットする
  */
 function sampleSet(){
-    var str = document.getElementsByClassName("detail")[0].textContent;
+    const str = document.getElementsByClassName("detail")[0].textContent;
     document.getElementById("typo").value = str;
 }
 
